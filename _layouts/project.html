@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<article class="project">
+  <header class="project-header">
+    <h1 class="project-title">{{ page.title }}</h1>
+    {% if page.github %}
+      <a href="{{ page.github }}" class="github-link" target="_blank">View on GitHub →</a>
+    {% endif %}
+  </header>
+
+  <div class="project-content">
+    {{ content }}
+  </div>
+
+  {% if page.demo %}
+    <div class="project-demo">
+      <a href="{{ page.demo }}" class="demo-button" target="_blank">Live Demo</a>
+    </div>
+  {% endif %}
+</article>

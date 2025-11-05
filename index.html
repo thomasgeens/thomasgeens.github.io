@@ -1,0 +1,47 @@
+---
+layout: default
+title: Home
+---
+
+<div class="hero">
+  <div class="hero-content">
+    <h1 class="glitch" data-text="Braindump">Braindump</h1>
+    <p class="subtitle">Where code snippets and ideas collide</p>
+  </div>
+</div>
+
+<section class="content-grid">
+  <div class="card">
+    <h2>📝 Recent Posts</h2>
+    <ul class="post-list">
+      {% for post in site.posts limit:5 %}
+        <li>
+          <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>💡 Code Snippets</h2>
+    <ul class="post-list">
+      {% for snippet in site.snippets limit:5 %}
+        <li>
+          <a href="{{ snippet.url | relative_url }}">{{ snippet.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🚀 Project Starters</h2>
+    <ul class="post-list">
+      {% for project in site.projects limit:5 %}
+        <li>
+          <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>

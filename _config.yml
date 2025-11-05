@@ -1,0 +1,47 @@
+title: "Braindump"
+description: "Code snippets, technical musings, and project starters"
+url: "https://thomasgeens.github.io"
+baseurl: ""
+
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+collections:
+  snippets:
+    output: true
+    permalink: /snippets/:name/
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .sass-cache
+  - .jekyll-cache
+  - README.md
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "snippets"
+    values:
+      layout: "snippet"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"

@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<article class="snippet">
+  <header class="snippet-header">
+    <h1 class="snippet-title">{{ page.title }}</h1>
+    {% if page.language %}
+      <span class="snippet-language">{{ page.language }}</span>
+    {% endif %}
+  </header>
+
+  <div class="snippet-content">
+    {{ content }}
+  </div>
+
+  {% if page.gist %}
+    <div class="gist-link">
+      <a href="{{ page.gist }}" target="_blank">View on GitHub Gist →</a>
+    </div>
+  {% endif %}
+</article>
