@@ -512,11 +512,32 @@ body.theme-light .switch .switch-thumb{
   box-shadow: 0 12px 48px rgba(0, 217, 255, 0.2);
 }
 
-.card h2 {
+.card h2, .card h3 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   color: var(--accent);
 }
+/* Card title links: gradient by default, brighter on hover */
+.card h2 a, .card h3 a{
+  background: var(--gradient-soft);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  text-decoration: none;
+}
+.card h2 a:visited, .card h3 a:visited{
+  background: var(--gradient-soft);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.card h2 a:hover, .card h3 a:hover{
+  background: var(--gradient);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+/* Other links inside cards (e.g., View on GitHub) */
+.card a{ color: var(--accent); }
+.card a:visited{ color: var(--accent); }
+.card p a{ text-decoration: underline; text-underline-offset: 3px; }
 
 .post-list {
   list-style: none;
