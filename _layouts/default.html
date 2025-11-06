@@ -21,18 +21,24 @@
     gtag('config', 'G-K6S5BNLTT5');
   </script>
 </head>
-<body>
+<body class="{% if page.url == '/' or page.title == 'Home' %}is-home{% endif %}">
   <canvas id="particles-canvas"></canvas>
   
   <nav class="main-nav">
     <div class="nav-container">
-      <a href="{{ '/' | relative_url }}" class="nav-logo">Snipdumps <span style="font-weight:400;">by Thomas Geens</span></a>
+  <a href="{{ '/' | relative_url }}" class="nav-logo"><span class="brand-name">Snipdumps</span> <span class="brand-by">by Thomas Geens</span></a>
       <ul class="nav-links">
         <li><a href="{{ '/' | relative_url }}">Home</a></li>
         <li><a href="{{ '/snipdumps/' | relative_url }}">Snipdumps</a></li>
         <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
         <li><a href="{{ '/about/' | relative_url }}">About</a></li>
         <li class="nav-controls">
+          <button type="button" id="search-open" class="icon-btn" aria-haspopup="dialog" aria-controls="search-modal" aria-label="Open search" title="Search">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="11" cy="11" r="6"/>
+              <line x1="16.5" y1="16.5" x2="21" y2="21" stroke-linecap="round"/>
+            </svg>
+          </button>
           <div class="style-picker">
             <button type="button" id="style-picker" aria-haspopup="menu" aria-expanded="false" aria-label="Typography style: Clean Humanist" title="Typography: Clean Humanist">
               <span class="icon-aa"><span class="aa-head">A</span><span class="aa-body">a</span></span>
@@ -46,8 +52,21 @@
               <li role="none"><button role="menuitem" data-font="ssp" data-label="Classic Humanist">Classic Humanist (Source Sans)</button></li>
             </ul>
           </div>
-          <button type="button" id="theme-toggle" class="switch" role="switch" aria-checked="false" aria-label="Toggle light or dark theme">
-            <span class="switch-track"><span class="switch-thumb"></span></span>
+          <button type="button" id="theme-toggle" class="icon-btn theme-toggle" role="switch" aria-checked="false" aria-label="Toggle light or dark theme" title="Toggle theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="4"/>
+              <line x1="12" y1="1" x2="12" y2="4"/>
+              <line x1="12" y1="20" x2="12" y2="23"/>
+              <line x1="1" y1="12" x2="4" y2="12"/>
+              <line x1="20" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+              <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+              <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+              <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
           </button>
         </li>
       </ul>
@@ -65,5 +84,43 @@
   <script src="{{ '/assets/js/particles.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/font-toggle.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/toc.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/search.js' | relative_url }}" data-search-index="{{ '/search.json' | relative_url }}"></script>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal" hidden role="dialog" aria-modal="true" aria-labelledby="search-title">
+    <div class="search-panel">
+      <div class="search-header">
+        <h2 id="search-title">Search</h2>
+        <button type="button" id="search-close" class="icon-btn" aria-label="Close search" title="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <line x1="6" y1="6" x2="18" y2="18" stroke-linecap="round"/>
+            <line x1="18" y1="6" x2="6" y2="18" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="search-input">
+        <input id="search-query" type="search" placeholder="Search titles and content..." autocomplete="off" />
+      </div>
+      <div class="filters">
+        <div class="filter-group">
+          <div class="filter-title">Tags</div>
+          <div id="tag-cloud" class="chips"></div>
+        </div>
+        <div class="filter-group">
+          <div class="filter-title">Categories</div>
+          <div id="category-cloud" class="chips"></div>
+        </div>
+        <div class="filter-group">
+          <div class="filter-title">Year</div>
+          <div id="year-cloud" class="chips"></div>
+        </div>
+        <div class="filter-group">
+          <div class="filter-title">Sort</div>
+          <div id="sort-cloud" class="chips"></div>
+        </div>
+      </div>
+      <div id="search-results" class="search-results" aria-live="polite"></div>
+    </div>
+  </div>
 </body>
 </html>

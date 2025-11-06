@@ -12,9 +12,9 @@ title: About
     <h2>What You'll Find Here</h2>
     
     <ul>
-      <li><strong>Code Snippets:</strong> Reusable code patterns and solutions</li>
+      <li><strong>Snipdumps:</strong> Reusable code patterns and solutions, could be smaller than a gist and larger than a snippet. OK to be fair... these keep me from writing Blog posts :stuck_out_tongue_winking_eye:</li>
       <li><strong>Blog Posts:</strong> Technical writings and tutorials (when I feel like it)</li>
-      <li><strong>Project Starters:</strong> Scaffolding and boilerplate projects</li>
+      <li><strong>Project Starters:</strong> Scaffolding and boilerplate projects. You might want to fork these you little scrounger!</li>
     </ul>
     
     <h2>Tech Stack</h2>
