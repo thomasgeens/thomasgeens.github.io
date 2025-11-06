@@ -794,6 +794,7 @@ body.theme-light .chip .count{ background: rgba(15,23,42,0.06); }
 .main-footer a{ color: var(--accent); text-decoration: none; border-bottom: 1px dashed rgba(14,165,233,0.35); }
 .main-footer a:hover{ border-bottom-color: var(--accent); }
 .main-footer .foot-note{ display: block; margin-top: 0.4rem; opacity: 0.8; }
+.footer-icon{ width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin: 0 2px; opacity: 0.7; }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -903,3 +904,59 @@ body.theme-light .search-panel .chip[data-type="category"]{ background: #eef1ff;
 /* Comments */
 .comments{ margin-top: 2rem; }
 .comments h2{ font-size: 1.25rem; margin-bottom: 0.75rem; }
+
+/* Pi Easter Egg */
+.pi-trigger{ position: fixed; right: 16px; bottom: 16px; z-index: 300; display:inline-flex; align-items:center; justify-content:center; padding: 0; border: none; background: transparent; color: var(--text-secondary); cursor: pointer; line-height: 1; box-shadow: none; opacity: 0.5; transition: opacity 0.2s ease, color 0.2s ease; }
+.pi-trigger svg{ width: 22px; height: 22px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25)); }
+.pi-trigger:hover{ color: var(--accent); opacity: 1; }
+.pi-trigger:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+.pi-overlay[hidden]{ display: none !important; }
+.pi-message[hidden]{ display: none !important; }
+.pi-overlay{ position: fixed; inset: 0; z-index: 350; background: rgba(0,0,0,0.7); backdrop-filter: blur(2px); display: grid; place-items: center; }
+.pi-stack{ position: absolute; inset: 0; pointer-events: none; }
+.pi-window{ position: absolute; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.35); animation: pi-drop 500ms cubic-bezier(.2,.8,.3,1) both; }
+.pi-titlebar{ display:flex; align-items:center; gap:6px; padding: 6px 8px; background: rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.7rem; color: var(--text-secondary); }
+.pi-titlebar .dot{ width: 8px; height: 8px; border-radius: 50%; display:inline-block; opacity: 0.8; }
+.pi-titlebar .dot.red{ background:#ef4444; }
+.pi-titlebar .dot.yellow{ background:#eab308; }
+.pi-titlebar .dot.green{ background:#22c55e; }
+.pi-titlebar .title{ margin-left: auto; letter-spacing: 0.06em; font-weight: 700; font-size: 0.7rem; opacity: 0.9; }
+.pi-titlebar .badge{ margin-left: 6px; padding: 2px 6px; border-radius: 999px; font-weight: 800; font-size: 0.6rem; letter-spacing: 0.06em; background: rgba(255,255,255,0.12); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.18); }
+.pi-titlebar .badge[data-agency="NSA"]{ background: rgba(59,130,246,0.25); border-color: rgba(59,130,246,0.45); }
+.pi-titlebar .badge[data-agency="FBI"]{ background: rgba(234,179,8,0.25); border-color: rgba(234,179,8,0.45); }
+.pi-titlebar .badge[data-agency="CIA"]{ background: rgba(124,58,237,0.25); border-color: rgba(124,58,237,0.45); }
+.pi-titlebar .badge[data-agency="MI6"]{ background: rgba(16,185,129,0.25); border-color: rgba(16,185,129,0.45); }
+.pi-titlebar .badge[data-agency="NASA"]{ background: rgba(14,165,233,0.25); border-color: rgba(14,165,233,0.45); }
+.pi-body{ position: relative; padding: 8px; }
+.pi-code{ font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; line-height: 1.35; color: color-mix(in lab, var(--text-secondary) 85%, transparent); white-space: pre-wrap; word-break: break-word; max-height: 130px; overflow: hidden; }
+.pi-code .l{ opacity: 0.9; }
+.pi-watermark{ position:absolute; inset: 0; display:grid; place-items:center; font-weight: 800; font-size: 1.25rem; color: rgba(239,68,68,0.75); transform: rotate(-18deg); mix-blend-mode: multiply; opacity: 0.25; pointer-events: none; }
+
+.pi-message{ position: relative; z-index: 1; max-width: 680px; width: min(92vw, 680px); border-radius: 16px; border:1px solid rgba(255,255,255,0.14); background: var(--bg-card); padding: 1rem 1rem 1.25rem; }
+.pi-msg-head{ display:flex; align-items:center; justify-content: space-between; gap: 1rem; }
+.pi-message h2{ margin: 0; font-size: 1.4rem; }
+.pi-message p{ color: var(--text-secondary); margin-top: 0.5rem; }
+
+/* Match search panel close button glass style */
+.pi-msg-head .icon-btn{
+  background: rgba(255,255,255,0.06);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color, rgba(255,255,255,0.12));
+  border-radius: 10px;
+}
+.pi-msg-head .icon-btn:hover,
+.pi-msg-head .icon-btn:focus{
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.pi-msg-head .icon-btn:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@keyframes pi-drop{
+  0%{ opacity: 0; transform: translateY(-60px) scale(0.98); filter: blur(2px); }
+  60%{ opacity: 1; transform: translateY(6px) scale(1.005); filter: blur(0.2px); }
+  100%{ opacity: 1; transform: translateY(0) scale(1); filter: none; }
+}
