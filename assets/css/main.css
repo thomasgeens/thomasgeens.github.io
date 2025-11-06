@@ -899,3 +899,7 @@ body.theme-light .search-panel .chip[data-type="category"]{ background: #eef1ff;
 .result .meta{ font-size: 0.8rem; color: var(--text-secondary); }
 .result .meta-badges{ display:flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.25rem; }
 .result .tag, .result .category{ font-size: 0.8rem; padding: 0.2rem 0.55rem; border-radius: 999px; }
+
+/* Comments */
+.comments{ margin-top: 2rem; }
+.comments h2{ font-size: 1.25rem; margin-bottom: 0.75rem; }

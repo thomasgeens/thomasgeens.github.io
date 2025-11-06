@@ -1,0 +1,27 @@
+{% if site.giscus and site.giscus.enabled %}
+  <section class="comments card" id="comments">
+    <h2>Comments</h2>
+    <script src="https://giscus.app/client.js"
+      data-repo="{{ site.giscus.repo }}"
+      {% if site.giscus.repo_id %}data-repo-id="{{ site.giscus.repo_id }}"{% endif %}
+      {% if site.giscus.category %}data-category="{{ site.giscus.category }}"{% endif %}
+      {% if site.giscus.category_id %}data-category-id="{{ site.giscus.category_id }}"{% endif %}
+      data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
+      data-strict="1"
+      data-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' }}"
+      data-emit-metadata="{{ site.giscus.emit_metadata | default: '0' }}"
+      data-input-position="{{ site.giscus.input_position | default: 'bottom' }}"
+      data-theme="{{ site.giscus.theme | default: 'preferred_color_scheme' }}"
+      data-lang="{{ site.giscus.lang | default: site.locale | default: 'en' }}"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+{% else %}
+  <section class="comments card" id="comments">
+    <h2>Comments</h2>
+    <p style="color: var(--text-secondary); margin: 0;">
+      Comments are not enabled yet. To enable, configure giscus in <code>_config.yml</code> and set <code>giscus.enabled: true</code>.
+    </p>
+  </section>
+{% endif %}
