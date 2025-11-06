@@ -8,6 +8,13 @@ layout: default
     {% if page.language %}
       <span class="snippet-language">{{ page.language }}</span>
     {% endif %}
+    {% if page.categories %}
+      <span class="categories">
+        {% for category in page.categories %}
+          <span class="category">{{ category }}</span>
+        {% endfor %}
+      </span>
+    {% endif %}
   </header>
 
   <div class="snippet-content">

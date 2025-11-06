@@ -1,24 +1,31 @@
-title: "Braindump"
-description: "Code snippets, technical musings, and project starters"
+
+title: "Snipdumps by Thomas Geens"
+description: "Short braindumps, code snippets, and technical notes by Thomas Geens."
+author: "Thomas Geens"
 url: "https://thomasgeens.github.io"
 baseurl: ""
 
+google_analytics: "UA-XXXXXXXXX-X" # Replace with your GA Tracking ID
+
+
 markdown: kramdown
 highlighter: rouge
-permalink: /:year/:month/:day/:title/
+permalink: /:categories/:title/
 
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
 
+
 collections:
-  snippets:
+  snipdumps:
     output: true
-    permalink: /snippets/:name/
+    permalink: /snipdumps/:name/
   projects:
     output: true
     permalink: /projects/:name/
+
 
 exclude:
   - Gemfile
@@ -29,19 +36,18 @@ exclude:
   - .jekyll-cache
   - README.md
 
+
 defaults:
   - scope:
       path: ""
-      type: "posts"
+      type: "snipdumps"
     values:
-      layout: "post"
-  - scope:
-      path: ""
-      type: "snippets"
-    values:
-      layout: "snippet"
+      layout: "snipdump"
   - scope:
       path: ""
       type: "projects"
     values:
       layout: "project"
+
+tag_page_layout: "tag"
+category_page_layout: "category"

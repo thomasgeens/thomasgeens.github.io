@@ -8,21 +8,48 @@
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;600&family=Source+Sans+Pro:wght@400;600&family=Nunito:wght@600;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
+  <meta name="theme-color" content="#0a0e27">
   {%- seo -%}
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6S5BNLTT5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K6S5BNLTT5');
+  </script>
 </head>
 <body>
   <canvas id="particles-canvas"></canvas>
   
   <nav class="main-nav">
     <div class="nav-container">
-      <a href="{{ '/' | relative_url }}" class="nav-logo">{{ site.title }}</a>
+      <a href="{{ '/' | relative_url }}" class="nav-logo">Snipdumps <span style="font-weight:400;">by Thomas Geens</span></a>
       <ul class="nav-links">
         <li><a href="{{ '/' | relative_url }}">Home</a></li>
-        <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
-        <li><a href="{{ '/snippets/' | relative_url }}">Snippets</a></li>
+        <li><a href="{{ '/snipdumps/' | relative_url }}">Snipdumps</a></li>
         <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
         <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+        <li class="nav-controls">
+          <div class="style-picker">
+            <button type="button" id="style-picker" aria-haspopup="menu" aria-expanded="false" aria-label="Typography style: Clean Humanist" title="Typography: Clean Humanist">
+              <span class="icon-aa"><span class="aa-head">A</span><span class="aa-body">a</span></span>
+            </button>
+            <ul id="style-menu" class="style-menu" role="menu" aria-label="Choose typography style">
+              <li role="none"><button role="menuitem" data-font="poppins-ssp" data-label="Clean Humanist">Clean Humanist (Poppins + Source Sans)</button></li>
+              <li role="none"><button role="menuitem" data-font="poppins-inter" data-label="Neo Tech">Neo Tech (Poppins + Inter)</button></li>
+              <li role="none"><button role="menuitem" data-font="manrope" data-label="Soft Grotesk">Soft Grotesk (Manrope)</button></li>
+              <li role="none"><button role="menuitem" data-font="nunito-inter" data-label="Friendly Pro">Friendly Pro (Nunito + Inter)</button></li>
+              <li role="none"><button role="menuitem" data-font="inter" data-label="Crisp System">Crisp System (Inter)</button></li>
+              <li role="none"><button role="menuitem" data-font="ssp" data-label="Classic Humanist">Classic Humanist (Source Sans)</button></li>
+            </ul>
+          </div>
+          <button type="button" id="theme-toggle" class="switch" role="switch" aria-checked="false" aria-label="Toggle light or dark theme">
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </button>
+        </li>
       </ul>
     </div>
   </nav>
@@ -32,9 +59,11 @@
   </main>
 
   <footer class="main-footer">
-    <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. Built with Jekyll & GitHub Pages.</p>
+    <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. Built with Jekyll & GitHub Pages. <span class="foot-note"><a href="https://github.com/thomasgeens/thomasgeens.github.io" target="_blank" rel="noopener">Source on GitHub</a></span></p>
   </footer>
 
   <script src="{{ '/assets/js/particles.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/font-toggle.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/toc.js' | relative_url }}"></script>
 </body>
 </html>

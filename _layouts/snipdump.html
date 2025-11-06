@@ -1,0 +1,68 @@
+---
+layout: default
+---
+
+<article class="snipdump">
+  <header class="snipdump-header">
+    <h1 class="snipdump-title">{{ page.title }}</h1>
+    <div class="snipdump-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%B %d, %Y" }}
+      </time>
+      {% if page.tags %}
+        <span class="tags">
+          {% for tag in page.tags %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </span>
+      {% endif %}
+      {% if page.categories %}
+        <span class="categories">
+          {% for category in page.categories %}
+            <span class="category">{{ category }}</span>
+          {% endfor %}
+        </span>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="snipdump-content">
+    {{ content }}
+  </div>
+
+  {%- assign docs = site.snipdumps | sort: 'date' | reverse -%}
+  {%- assign prev = nil -%}
+  {%- assign next = nil -%}
+  {%- assign prev_doc = nil -%}
+  {%- assign found = false -%}
+  {%- for d in docs -%}
+    {%- if found and next == nil -%}
+      {%- assign next = d -%}
+      {%- break -%}
+    {%- endif -%}
+    {%- if d.url == page.url -%}
+      {%- assign prev = prev_doc -%}
+      {%- assign found = true -%}
+    {%- endif -%}
+    {%- assign prev_doc = d -%}
+  {%- endfor -%}
+
+  {%- if prev or next -%}
+  <nav class="post-nav" aria-label="Snipdump navigation">
+    {%- if prev -%}
+      <a class="prev" href="{{ prev.url | relative_url }}" aria-label="Previous snipdump: {{ prev.title }}">
+        <span class="dir">Previous</span>
+        <span class="title">← {{ prev.title }}</span>
+      </a>
+    {%- else -%}
+      <span></span>
+    {%- endif -%}
+    {%- if next -%}
+      <a class="next" href="{{ next.url | relative_url }}" aria-label="Next snipdump: {{ next.title }}">
+        <span class="dir">Next</span>
+        <span class="title">{{ next.title }} →</span>
+      </a>
+    {%- endif -%}
+  </nav>
+  {%- endif -%}
+</article>

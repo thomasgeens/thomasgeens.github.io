@@ -16,6 +16,13 @@ layout: default
           {% endfor %}
         </span>
       {% endif %}
+      {% if page.categories %}
+        <span class="categories">
+          {% for category in page.categories %}
+            <span class="category">{{ category }}</span>
+          {% endfor %}
+        </span>
+      {% endif %}
     </div>
   </header>
 

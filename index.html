@@ -3,32 +3,35 @@ layout: default
 title: Home
 ---
 
+
 <div class="hero">
   <div class="hero-content">
-    <h1 class="glitch" data-text="Braindump">Braindump</h1>
-    <p class="subtitle">Where code snippets and ideas collide</p>
+    <div class="title-wrap">
+      <h1 class="glitch" data-text="Snipdumps">Snipdumps</h1>
+      <p class="byline">by <strong>Thomas Geens</strong></p>
+    </div>
+    <div class="snipdemo" aria-hidden="true">
+      <div class="equation">
+        <span class="word word-snippet"><span class="snip">snip</span><span class="rest">pet</span></span>
+        <span class="op">+</span>
+        <span class="word word-braindump"><span class="rest">brain</span><span class="dump">dump</span></span>
+        <span class="op">=</span>
+        <span class="result word-result"><span class="snip">snip</span><span class="dump">dump</span><span class="rest">s</span></span>
+      </div>
+      <p class="sr-only">snip plus dump equals snipdump</p>
+    </div>
   </div>
 </div>
 
+
 <section class="content-grid">
   <div class="card">
-    <h2>📝 Recent Posts</h2>
+    <h2>🧠 Latest Snipdumps</h2>
     <ul class="post-list">
-      {% for post in site.posts limit:5 %}
+      {% for snipdump in site.snipdumps limit:5 %}
         <li>
-          <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
-          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>💡 Code Snippets</h2>
-    <ul class="post-list">
-      {% for snippet in site.snippets limit:5 %}
-        <li>
-          <a href="{{ snippet.url | relative_url }}">{{ snippet.title }}</a>
+          <span class="post-date">{{ snipdump.date | date: "%b %d, %Y" }}</span>
+          <a href="{{ snipdump.url | relative_url }}">{{ snipdump.title }}</a>
         </li>
       {% endfor %}
     </ul>
