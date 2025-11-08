@@ -31,6 +31,32 @@
 
     const sanitize = (s) => (s || '').toString().toLowerCase();
 
+    // Basic fuzzy subsequence score: returns value between 0 and 1
+    function fuzzyScore(text, query){
+      text = sanitize(text);
+      query = sanitize(query);
+      if(!query) return 1;
+      if(!text) return 0;
+      if(text.includes(query)){
+        // Bonus for contiguous match, slightly favor shorter matches
+        return Math.min(1, 0.6 + (query.length / Math.max(text.length, query.length)) * 0.4);
+      }
+      // subsequence matching
+      let ti = 0, qi = 0, gaps = 0;
+      while(ti < text.length && qi < query.length){
+        if(text[ti] === query[qi]){
+          qi++;
+        } else {
+          gaps++;
+        }
+        ti++;
+      }
+      if(qi < query.length) return 0;
+      const coverage = query.length / Math.max(text.length, query.length);
+      const compactness = 1 / (1 + gaps);
+      return Math.max(0, Math.min(1, 0.2 + 0.5*coverage + 0.3*compactness));
+    }
+
     function tallyCounts(){
       tagCounts = new Map();
       catCounts = new Map();
@@ -79,15 +105,19 @@
     }
 
     function scoreItem(item, terms){
-      if(!terms.length) return 1; // base score
-      const title = sanitize(item.title);
-      const ex = sanitize(item.excerpt);
+      if(!terms.length) return 1; // base score when no query
+      const title = item.title || '';
+      const ex = item.excerpt || '';
+      const tags = (item.tags||[]).join(' ');
+      const cats = (item.categories||[]).join(' ');
       let s = 0;
-      terms.forEach(t => {
-        if(!t) return;
-        if(title.includes(t)) s += 3;
-        if(ex.includes(t)) s += 1;
-      });
+      for(const t of terms){
+        if(!t) continue;
+        const ts = fuzzyScore(title, t) * 6; // strong weight for title
+        const es = fuzzyScore(ex, t) * 2;    // weak weight for excerpt
+        const as = Math.max(fuzzyScore(tags, t), fuzzyScore(cats, t)) * 2; // tags/cats medium
+        s += ts + es + as;
+      }
       return s;
     }
 
@@ -103,9 +133,9 @@
           if(!selectedYears.has(yr)) return false;
         }
         if(!terms.length) return true;
-        const t = sanitize(i.title);
-        const e = sanitize(i.excerpt);
-        return terms.every(term => t.includes(term) || e.includes(term));
+        // Include if any fuzzy relevance for any term is non-zero
+        const itemScore = scoreItem(i, terms);
+        return itemScore > 0.5; // minimal threshold
       });
 
       if(selectedSort === 'newest'){
@@ -125,9 +155,15 @@
           const a = document.createElement('a');
           a.className = 'result';
           a.href = i.url;
-          const tags = (i.tags && i.tags.length) ? i.tags.map(t=>`<span class="tag">${t}</span>`).join(' ') : '';
-          const cats = (i.categories && i.categories.length) ? i.categories.map(c=>`<span class="category">${c}</span>`).join(' ') : '';
-          a.innerHTML = `<div class="title">${i.title}</div>
+          const tags = (i.tags && i.tags.length) ? i.tags.map(t=>`<span class=\"tag\">${t}</span>`).join(' ') : '';
+          const cats = (i.categories && i.categories.length) ? i.categories.map(c=>`<span class=\"category\">${c}</span>`).join(' ') : '';
+          let titleHTML = i.title;
+          terms.forEach(term => {
+            if(!term) return;
+            const re = new RegExp(term.replace(/[-\/\\^$*+?.()|[\]{}]/g,'\\$&'), 'ig');
+            titleHTML = titleHTML.replace(re, m=>`<mark>${m}</mark>`);
+          });
+          a.innerHTML = `<div class=\"title\">${titleHTML}</div>
             <div class="meta">${i.type} • ${i.date}</div>
             <div class="meta-badges">${cats} ${tags}</div>`;
           resultsEl.appendChild(a);
@@ -150,13 +186,17 @@
     function openModal(){
       modal.hidden = false;
       document.body.style.overflow = 'hidden';
-      setTimeout(()=> input && input.focus(), 10);
+      requestAnimationFrame(()=>{
+        modal.classList.add('open');
+        input && input.focus();
+      });
       applyFilters();
       syncSelectedVisuals();
     }
 
     function closeModal(){
-      modal.hidden = true;
+      modal.classList.remove('open');
+      setTimeout(()=>{ modal.hidden = true; }, 150);
       document.body.style.overflow = '';
     }
 
@@ -175,7 +215,37 @@
     openBtn.addEventListener('click', openModal);
     if(closeBtn) closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && !modal.hidden) closeModal(); });
+  document.addEventListener('keydown', (e)=>{
+      // Close on Escape
+      if(e.key === 'Escape' && !modal.hidden){ closeModal(); }
+      // Quick open shortcuts: '/' or Cmd/Ctrl+K
+      const isInput = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable);
+      if(!isInput && e.key === '/'){
+        e.preventDefault();
+        openModal();
+      }
+      if((e.key.toLowerCase() === 'k') && (e.metaKey || e.ctrlKey)){
+        e.preventDefault();
+        openModal();
+      }
+      if(!modal.hidden && (e.key === 'ArrowDown' || e.key === 'ArrowUp')){
+        const items = Array.from(resultsEl.querySelectorAll('.result'));
+        if(!items.length) return;
+        const active = document.activeElement;
+        let idx = items.indexOf(active);
+        if(e.key === 'ArrowDown'){
+          e.preventDefault();
+          idx = (idx + 1 + items.length) % items.length;
+        } else {
+          e.preventDefault();
+          idx = (idx - 1 + items.length) % items.length;
+        }
+        items[idx].focus();
+      }
+      if(!modal.hidden && e.key === 'Enter' && document.activeElement && document.activeElement.classList.contains('result')){
+        // Let link activate normally
+      }
+    });
     if(input) input.addEventListener('input', applyFilters);
 
     // Click on chips

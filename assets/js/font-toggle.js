@@ -71,13 +71,32 @@
   function init(){
     var savedFont = localStorage.getItem('fontKey') || DEFAULT_FONT_KEY;
     if(FONT_KEYS.indexOf(savedFont) === -1) savedFont = DEFAULT_FONT_KEY;
-    var savedTheme = localStorage.getItem('theme') || DEFAULT_THEME;
+    var savedTheme = localStorage.getItem('theme');
+    if(!savedTheme){
+      try {
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        savedTheme = prefersLight ? 'light' : DEFAULT_THEME;
+      } catch(_) {
+        savedTheme = DEFAULT_THEME;
+      }
+    }
     applyState({ fontKey: savedFont, theme: savedTheme });
 
     var picker = document.getElementById('style-picker');
     var menu = document.getElementById('style-menu');
     if(picker && menu){
-      picker.addEventListener('click', function(){
+      picker.addEventListener('click', function(e){
+        // Prevent global document click handler from immediately closing the menu
+        e.stopPropagation();
+        // Shortcut: Shift+Click cycles to next font without opening menu
+        if(e.shiftKey){
+          var current = localStorage.getItem('fontKey') || savedFont;
+          var idx = FONT_KEYS.indexOf(current);
+          var next = FONT_KEYS[(idx + 1) % FONT_KEYS.length];
+          localStorage.setItem('fontKey', next);
+          applyState({ fontKey: next, theme: localStorage.getItem('theme') || DEFAULT_THEME });
+          return; // Do not toggle menu
+        }
         var expanded = picker.getAttribute('aria-expanded') === 'true';
         if(expanded) closeMenu(); else openMenu();
       });
@@ -118,7 +137,10 @@
         }
       });
       document.addEventListener('click', function(e){
-        if(!menu.contains(e.target) && e.target !== picker){ closeMenu(); }
+        // Close when clicking outside both the menu and the picker button (including its children)
+        if(!menu.contains(e.target) && !picker.contains(e.target)){
+          closeMenu();
+        }
       });
       document.addEventListener('keydown', function(e){
         if(e.key === 'Escape'){ closeMenu(); picker && picker.focus(); }

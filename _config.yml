@@ -5,6 +5,7 @@ author: "Thomas Geens"
 url: "https://thomasgeens.github.io"
 baseurl: ""
 
+
 google_analytics: "UA-XXXXXXXXX-X" # Replace with your GA Tracking ID
 
 
@@ -29,6 +30,11 @@ collections:
   snippets:
     output: true
     permalink: /snippets/:name/
+
+feed:
+  collections:
+    - posts
+    - snipdumps
 
 
 exclude:
