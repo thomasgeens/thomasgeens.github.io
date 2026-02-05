@@ -1,3 +1,4 @@
+# Jekyll specific files
 _site/
 .sass-cache/
 .jekyll-cache/
@@ -7,3 +8,13 @@ vendor/
 Gemfile.lock
 .DS_Store
 node_modules/
+
+# Windows generated files
+Thumbs.db
+Desktop.ini
+
+# macOS generated files
+.DS_Store
+
+# VS Code
+.vscode/

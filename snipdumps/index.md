@@ -8,7 +8,8 @@ title: Snipdumps
 Short braindumps and code snippets by Thomas Geens.
 
 <div class="content-grid">
-  {% for snipdump in site.snipdumps %}
+  {% assign sorted_snipdumps = site.snipdumps | sort: "date" | reverse %}
+  {% for snipdump in sorted_snipdumps %}
     <div class="card">
       <h3><a href="{{ snipdump.url | relative_url }}">{{ snipdump.title }}</a></h3>
       <p class="post-date">{{ snipdump.date | date: "%B %d, %Y" }}</p>
