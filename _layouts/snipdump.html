@@ -114,7 +114,8 @@ layout: default
     </a>
     {%- else -%}
     <span></span>
-    {%- endif -%} {%- if next -%}
+    {%- endif -%}
+    {%- if next -%}
     <a
       class="next"
       href="{{ next.url | relative_url }}"
