@@ -3,7 +3,6 @@ layout: default
 title: Home
 ---
 
-
 <div class="hero">
   <div class="hero-content">
     <div class="title-wrap">
@@ -12,27 +11,34 @@ title: Home
     </div>
     <div class="snipdemo" aria-hidden="true">
       <div class="equation">
-        <span class="word word-snippet"><span class="snip">snip</span><span class="rest">pet</span></span>
+        <span class="word word-snippet"
+          ><span class="snip">snip</span><span class="rest">pet</span></span
+        >
         <span class="op">+</span>
-        <span class="word word-braindump"><span class="rest">brain</span><span class="dump">dump</span></span>
+        <span class="word word-braindump"
+          ><span class="rest">brain</span><span class="dump">dump</span></span
+        >
         <span class="op">=</span>
-        <span class="result word-result"><span class="snip">snip</span><span class="dump">dump</span><span class="rest">s</span></span>
+        <span class="result word-result"
+          ><span class="snip">snip</span><span class="dump">dump</span
+          ><span class="rest">s</span></span
+        >
       </div>
       <p class="sr-only">snip plus dump equals snipdump</p>
     </div>
   </div>
 </div>
 
-
 <section class="content-grid">
   <div class="card">
     <h2>🧠 Latest Snipdumps</h2>
     <ul class="post-list">
-      {% for snipdump in site.snipdumps limit:5 %}
-        <li>
-          <span class="post-date">{{ snipdump.date | date: "%b %d, %Y" }}</span>
-          <a href="{{ snipdump.url | relative_url }}">{{ snipdump.title }}</a>
-        </li>
+      {% assign sorted_snipdumps = site.snipdumps | sort: "date" | reverse %} {%
+      for snipdump in sorted_snipdumps limit:5 %}
+      <li>
+        <span class="post-date">{{ snipdump.date | date: "%b %d, %Y" }}</span>
+        <a href="{{ snipdump.url | relative_url }}">{{ snipdump.title }}</a>
+      </li>
       {% endfor %}
     </ul>
   </div>
@@ -41,9 +47,9 @@ title: Home
     <h2>🚀 Project Starters</h2>
     <ul class="post-list">
       {% for project in site.projects limit:5 %}
-        <li>
-          <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
-        </li>
+      <li>
+        <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+      </li>
       {% endfor %}
     </ul>
   </div>
