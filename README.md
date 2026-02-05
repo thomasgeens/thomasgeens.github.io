@@ -5,7 +5,7 @@ A personal collection of code snippets, short notes, and project starters.
 Built with Jekyll and deployed via GitHub Pages.
 
 - Live site: [https://thomasgeens.github.io](https://thomasgeens.github.io) (custom domain: [https://thomas.geens.be](https://thomas.geens.be))
-- Collections: posts, snippets, projects
+- Collections: posts, snipdumps, projects
 
 ## Local development
 

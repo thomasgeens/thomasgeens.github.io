@@ -3,7 +3,7 @@ layout: null
 permalink: /search.json
 ---
 [
-{% assign items = site.snipdumps | concat: site.snippets | concat: site.projects %}
+{% assign items = site.snipdumps | concat: site.projects %}
 {% for p in items %}
 {
   "title": {{ p.title | jsonify }},

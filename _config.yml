@@ -38,9 +38,6 @@ collections:
   projects:
     output: true
     permalink: /projects/:name/
-  snippets:
-    output: true
-    permalink: /snippets/:name/
 
 feed:
   collections:
@@ -67,11 +64,6 @@ defaults:
       type: "projects"
     values:
       layout: "project"
-  - scope:
-      path: ""
-      type: "snippets"
-    values:
-      layout: "snippet"
 
 tag_page_layout: "tag"
 category_page_layout: "category"
