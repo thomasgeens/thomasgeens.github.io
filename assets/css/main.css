@@ -933,7 +933,7 @@ body.theme-light .chip .count {
 }
 
 .post-list a {
-  color: var(--text-primary);
+  color: var(--accent);
   text-decoration: none;
   transition: color 0.3s ease;
   font-weight: 500;
