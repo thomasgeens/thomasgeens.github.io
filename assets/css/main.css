@@ -1143,10 +1143,10 @@ body.theme-light .chip .count {
 .snipdump-content blockquote.admonition > p:first-child {
   margin-top: 0;
 }
-.post-content blockquote.admonition > p:first-child strong,
-.snippet-content blockquote.admonition > p:first-child strong,
-.project-content blockquote.admonition > p:first-child strong,
-.snipdump-content blockquote.admonition > p:first-child strong {
+.post-content blockquote.admonition > p:first-child > strong:first-child,
+.snippet-content blockquote.admonition > p:first-child > strong:first-child,
+.project-content blockquote.admonition > p:first-child > strong:first-child,
+.snipdump-content blockquote.admonition > p:first-child > strong:first-child {
   color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.06em;
