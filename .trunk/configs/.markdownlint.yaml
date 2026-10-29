@@ -7,3 +7,6 @@ MD024: false
 MD025: false
 # Question headings ("Why the guards?") are intentional
 MD026: false
+# Collapsible code blocks (<details markdown="1">) in posts and snipdumps
+MD033:
+  allowed_elements: [details, summary, code]
