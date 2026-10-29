@@ -2282,3 +2282,71 @@ body.theme-light .search-panel .chip[data-type="category"] {
     filter: none;
   }
 }
+
+/* 404 terminal (assets/js/not-found.js) */
+.term-404 {
+  margin: 1.5rem 0 0;
+  padding: 1rem 1.25rem;
+  min-height: 14rem;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  color: var(--code-text);
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+/* Only script-built lines: keeps indentation, the no-JS fallback stays collapsed */
+.term-404 .term-line {
+  white-space: pre-wrap;
+}
+.term-404 .term-prompt {
+  color: var(--code-func);
+}
+.term-404 .term-error {
+  color: var(--code-keyword);
+}
+.term-404 .term-comment {
+  color: var(--code-comment);
+  font-style: italic;
+}
+.term-404 a {
+  color: var(--code-type);
+}
+.term-404 .term-input {
+  width: calc(100% - 26ch);
+  min-width: 8ch;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--code-text);
+  caret-color: var(--code-func);
+  font: inherit;
+}
+.term-404:focus-within {
+  border-color: var(--accent);
+}
+.term-404 .term-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  vertical-align: text-bottom;
+  background: var(--code-func);
+  animation: term-blink 1s steps(1) infinite;
+}
+.term-404 .term-cursor[hidden] {
+  display: none;
+}
+@keyframes term-blink {
+  50% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .term-404 .term-cursor {
+    animation: none;
+  }
+}
