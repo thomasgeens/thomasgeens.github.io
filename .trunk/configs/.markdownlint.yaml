@@ -1,2 +1,9 @@
 # Prettier friendly markdownlint config (all formatting rules disabled)
 extends: markdownlint/style/prettier
+
+# Shell comments inside Liquid {% highlight %} blocks are parsed as headings
+MD001: false
+MD024: false
+MD025: false
+# Question headings ("Why the guards?") are intentional
+MD026: false
