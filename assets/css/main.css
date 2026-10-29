@@ -1694,6 +1694,25 @@ details > * {
 .toc li::marker {
   color: var(--accent);
 }
+.toc li {
+  margin: 0;
+  line-height: 1.6;
+}
+.toc li.toc-h2 + li.toc-h2,
+.toc li.toc-h3 + li.toc-h2 {
+  margin-top: 0.5rem;
+}
+.toc li.toc-h3 {
+  margin-left: 1.25rem;
+  font-size: 0.9em;
+  list-style-type: circle;
+}
+.toc li.toc-h3 a {
+  opacity: 0.75;
+}
+.toc li.toc-h3 a:hover {
+  opacity: 1;
+}
 
 /* Prev/Next navigation */
 .post-nav {

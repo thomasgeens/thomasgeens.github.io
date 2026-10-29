@@ -23,6 +23,7 @@
     const ul = document.createElement('ul');
     heads.forEach(h => {
       const li = document.createElement('li');
+      li.className = `toc-${h.tagName.toLowerCase()}`;
       const a = document.createElement('a');
       a.href = `#${h.id}`;
       a.textContent = h.textContent;
