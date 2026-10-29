@@ -5,7 +5,6 @@ _site/
 .jekyll-metadata
 vendor/
 .bundle/
-Gemfile.lock
 .DS_Store
 node_modules/
 
