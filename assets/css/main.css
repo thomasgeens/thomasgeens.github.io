@@ -1411,21 +1411,37 @@ body.theme-light {
 }
 
 /* Scrollbar styling */
-.highlight::-webkit-scrollbar {
+/* Style the element that actually scrolls: pre.highlight for fenced blocks, the
+   pre inside figure.highlight for {% highlight %} blocks (the figure clips).
+   A styled scrollbar also stays visible on macOS instead of an overlay one. */
+.highlight::-webkit-scrollbar,
+.highlight > pre::-webkit-scrollbar {
   height: 8px;
 }
 
-.highlight::-webkit-scrollbar-track {
+.highlight::-webkit-scrollbar-track,
+.highlight > pre::-webkit-scrollbar-track {
   background: var(--code-bg);
 }
 
-.highlight::-webkit-scrollbar-thumb {
+.highlight::-webkit-scrollbar-thumb,
+.highlight > pre::-webkit-scrollbar-thumb {
   background: var(--code-muted);
   border-radius: 4px;
 }
 
-.highlight::-webkit-scrollbar-thumb:hover {
+.highlight::-webkit-scrollbar-thumb:hover,
+.highlight > pre::-webkit-scrollbar-thumb:hover {
   background: var(--code-border);
+}
+
+/* Firefox has no ::-webkit-scrollbar. Chrome would drop the rules above if these applied */
+@supports not selector(::-webkit-scrollbar) {
+  .highlight,
+  .highlight > pre {
+    scrollbar-width: thin;
+    scrollbar-color: var(--code-muted) var(--code-bg);
+  }
 }
 
 /* Rouge table structure */
